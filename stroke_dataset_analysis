@@ -1,0 +1,22 @@
+rm(list = ls())
+
+set.seed(70453)
+
+setwd(dir = "C:/Users/das70453/OneDrive - Texas Tech University/Thesis/real_data") # department pc
+
+#setwd("~/Library/CloudStorage/OneDrive-TexasTechUniversity/Thesis/real_data") # My Macbook
+
+source(file = "required_packages.R")
+
+source(file = "accuracy_supervised_function.R")
+
+dat <- read.csv(file = "heart_failure.csv", header = T)
+
+index <- sample(nrow(dat), size = 0.7* nrow(dat))
+
+train <- dat[index,]
+
+test <- dat[-index,]
+
+accuracy_supervised_models(train_covariates = train[,1:11], train_group = train$DEATH_EVENT,
+                            test_covariates = test[,1:11], test_group = test$DEATH_EVENT)
